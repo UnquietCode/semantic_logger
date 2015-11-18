@@ -100,8 +100,14 @@ module SemanticLogger
           # Payload
           unless log.payload.nil? || (log.payload.respond_to?(:empty?) && log.payload.empty?)
             payload = log.payload
-            #payload = (defined?(AwesomePrint) && payload.respond_to?(:ai)) ? payload.ai(multiline: false) : payload.inspect
-            entry << ' -- ' << payload.inspect
+            
+            if defined?(AwesomePrint) && payload.respond_to?(:ai)
+              payload = payload.ai(multiline: false)
+            else
+              payload = payload.inspect
+            end
+            
+            entry << ' -- ' << payload
           end
 
           # Exceptions
