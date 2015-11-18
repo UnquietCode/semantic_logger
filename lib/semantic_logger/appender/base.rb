@@ -104,8 +104,8 @@ module SemanticLogger
             if defined?(AwesomePrint) && payload.respond_to?(:ai)
               begin
                 payload = payload.ai(multiline: false)
-              rescue => e
-                payload = e.message
+              rescue
+                payload = payload.inspect
               end
             else
               payload = payload.inspect
